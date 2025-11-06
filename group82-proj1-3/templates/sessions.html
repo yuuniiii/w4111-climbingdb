@@ -1,0 +1,10 @@
+<h2>🧗 Your Sessions</h2>
+{% for s in sessions %}
+<form action="/session/{{ s.session_id }}" method="get">
+  <button type="submit">
+    {{ s.session_date }} —
+    {{ s.start_time.strftime("%H:%M") if s.start_time }} to
+    {{ s.end_time.strftime("%H:%M") if s.end_time }}
+  </button>
+</form>
+{% endfor %}

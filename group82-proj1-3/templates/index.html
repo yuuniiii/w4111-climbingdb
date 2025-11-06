@@ -1,0 +1,46 @@
+<!-- <html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>Some famous Computer Scientists</h1>
+  <div>{{data}}</div>
+
+  <div>
+    {% for n in data %}
+    <div>{{n}}</div>
+    {% endfor %}
+  </div>
+
+<p><a href="another">Go to the other page</a></p>
+
+<p><a href="climbers">VIEW ALL CLIMBERS</a></p>
+
+<form method="POST" action="/add">
+<p>Name of new computer scientist: <input type="text" name="name"> <input type="submit" value="Add"></p>
+</form>
+
+</body>
+
+
+</html> -->
+
+<html>
+  <body>
+    <h2>Login</h2>
+    <form method="POST">
+      <p>Username: <input type="text" name="username" maxlength="8" required></p>
+      <p>PIN: <input type="password" name="pin" maxlength="4" required></p>
+      <p><input type="submit" value="Login"></p>
+    </form>
+
+    {% if error %}
+      <p style="color:red;">{{ error }}</p>
+    {% endif %}
+  </body>
+</html>
