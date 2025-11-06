@@ -1,0 +1,29 @@
+<h2>Session Summary</h2>
+<p>Total Climbs: {{ stats.total_climbs }}</p>
+<p>Total Sends: {{ stats.total_sends }}</p>
+<p>Session Duration: {{ "%.0f"|format(stats.duration_min) }} minutes</p>
+
+<hr>
+
+<h3>🧗‍♀️ Climb Log</h3>
+{% for a in attempts %}
+  <p>
+    {% if a.result == 'Sent' %}
+      ✅ You sent a {{ a.color }} V{{ a.grade }} on {{ a.wall_name }} (attempt {{ a.attempt_number }}).
+    {% elif a.result == 'Fell' %}
+      💀 You fell on a {{ a.color }} V{{ a.grade }} on {{ a.wall_name }} (attempt {{ a.attempt_number }}).
+    {% else %}
+      🧩 Attempted a {{ a.color }} V{{ a.grade }} on {{ a.wall_name }}.
+    {% endif %}
+  </p>
+{% endfor %}
+
+<p style="font-style: italic; color: gray;">great work~ 💕</p>
+
+<hr>
+
+<h3>📝 Add Session Notes</h3>
+<form method="POST">
+  <textarea name="note" rows="4" cols="50" placeholder="How did the session feel? Any goals or takeaways?"></textarea><br>
+  <button type="submit">Save Notes</button>
+</form>

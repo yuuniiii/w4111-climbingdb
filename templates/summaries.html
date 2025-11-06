@@ -1,0 +1,59 @@
+<html>
+<head>
+  <title>Climbing Summaries</title>
+  <style>
+    .filter-bar { margin-bottom: 20px; }
+    .filter-bar button {
+      margin-right: 8px;
+      padding: 8px 12px;
+      background: #f0f0f0;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .filter-bar button.active {
+      background: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Climb Summaries for {{ username }}</h1>
+
+  <!-- Grouping Filter -->
+  <div class="filter-bar">
+    <strong>View by:</strong>
+    <a href="/summaries/{{ username }}?groupby=wall&period={{ period }}"><button class="{% if groupby == 'wall' %}active{% endif %}">🧗 Wall</button></a>
+    <a href="/summaries/{{ username }}?groupby=type&period={{ period }}"><button class="{% if groupby == 'type' %}active{% endif %}">🎨 Type</button></a>
+  </div>
+
+  <!-- Time Period Filter -->
+  <div class="filter-bar">
+    <strong>Timeframe:</strong>
+    <a href="/summaries/{{ username }}?groupby={{ groupby }}&period=day"><button class="{% if period == 'day' %}active{% endif %}">Day</button></a>
+    <a href="/summaries/{{ username }}?groupby={{ groupby }}&period=week"><button class="{% if period == 'week' %}active{% endif %}">Week</button></a>
+    <a href="/summaries/{{ username }}?groupby={{ groupby }}&period=month"><button class="{% if period == 'month' %}active{% endif %}">Month</button></a>
+    <a href="/summaries/{{ username }}?groupby={{ groupby }}&period=year"><button class="{% if period == 'year' %}active{% endif %}">Year</button></a>
+    <a href="/summaries/{{ username }}?groupby={{ groupby }}&period=all"><button class="{% if period == 'all' %}active{% endif %}">All</button></a>
+  </div>
+
+  <!-- Data Table -->
+  <table border="1" cellpadding="6">
+    <tr>
+      <th>{{ 'Wall' if groupby == 'wall' else 'Type' }}</th>
+      <th>Total Attempts</th>
+      <th>Total Sends</th>
+    </tr>
+    {% for category, total_attempts, total_sends in rows %}
+      <tr>
+        <td>{{ category }}</td>
+        <td>{{ total_attempts }}</td>
+        <td>{{ total_sends }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <p><a href="/climber_home/{{ username }}">⬅ Back to Dashboard</a></p>
+</body>
+</html>

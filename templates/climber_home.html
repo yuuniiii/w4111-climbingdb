@@ -1,0 +1,36 @@
+<html>
+  <body>
+    <h1>Welcome back, {{ username }}</h1>
+
+    <!-- your dashboard buttons -->
+    <a href="/log_session/{{ username }}"><button>🧗 Log Session</button></a>
+    <a href="/summaries/{{ username }}"><button>📊 View Summaries</button></a>
+
+    <!-- maybe some summary stats -->
+    <div class="stats">
+      <p><strong>Total Routes:</strong> {{ stats.total_routes }}</p>
+      <p><strong>Average Effort:</strong> {{ stats.avg_effort }}</p>
+      <p><strong>Top Wall:</strong> {{ stats.top_wall }}</p>
+    </div>
+
+    <hr>
+    <h2>📅 Your Sessions</h2>
+    
+    <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
+      {% for s in sessions %}
+      <form action="/session/{{ s.session_id }}" method="get">
+        <button type="submit"
+                style="padding: 10px; border-radius: 10px; border: 1px solid #ccc;
+                       background-color: #f9f9f9; font-size: 14px; text-align: left;
+                       cursor: pointer;">
+          <strong>{{ s.session_date }}</strong>
+          {% if s.start_time and s.end_time %}
+            — {{ s.start_time.strftime("%H:%M") }} to {{ s.end_time.strftime("%H:%M") }}
+          {% endif %}
+        </button>
+      </form>
+      {% endfor %}
+    </div>    
+
+  </body>
+</html>
