@@ -233,7 +233,17 @@ def climber_home(username):
         """)
         sessions = g.conn.execute(sessions_query, {'username': username}).fetchall()
 
-        
+        achievements_query = text("""
+            SELECT 
+                a.achievement_name,
+                a.description
+            FROM climber_achievement ca
+            JOIN achievement a ON ca.achievement_id = a.achievement_id
+            JOIN climber c ON ca.climber_id = c.climber_id
+            WHERE c.username = :username
+            ORDER BY ca.date_awarded DESC;
+        """)
+        achievements = g.conn.execute(achievements_query, {'username': username}).fetchall()
 
         # Pass both stats + logs to template
         return render_template(
@@ -241,7 +251,8 @@ def climber_home(username):
             username=username,
             stats=stats,
             log_rows=log_rows,
-            sessions=sessions
+            sessions=sessions,
+            achievements=achievements
         )
 
     except Exception as e:

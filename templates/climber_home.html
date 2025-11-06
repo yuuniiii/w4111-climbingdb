@@ -13,6 +13,20 @@
       <p><strong>Top Wall:</strong> {{ stats.top_wall }}</p>
     </div>
 
+    <h2>⭐ Achievements</h2>
+    <div id="achievements">
+        {% if achievements %}
+            {% for a in achievements %}
+                <div class="achievement">
+                    <span style="font-size: 1.2em;">⭐ {{ a.achievement_name }}</span><br>
+                    <em style="color: gray;">{{ a.description }}</em>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p><em>No achievements yet — keep climbing!</em></p>
+        {% endif %}
+    </div>
+    
     <hr>
     <h2>📅 Your Sessions</h2>
     
